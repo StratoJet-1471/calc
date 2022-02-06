@@ -1,56 +1,59 @@
 "use strict";
 
-var screenValue = "0";
 var currentNumber = 0;
 var currentOperation = null;
 var shouldResetScreenValue = false;
 
+const screen = document.getElementById('main-calc-screen');
+
+
 function addSymbol(symbol) {
-    if(symbol==='.') {
-        if(shouldResetScreenValue) shouldResetScreenValue = false;
-        if(screenValue.indexOf(symbol)===-1) screenValue+=symbol; 
+    if (symbol === '.') {
+        if (shouldResetScreenValue) shouldResetScreenValue = false;
+        if (!screen.value.includes(symbol)) screen.value += symbol;
     }
     else {
-        if(shouldResetScreenValue) {
-            screenValue = "0";
+        if (shouldResetScreenValue) {
+            screen.value = "0";
             shouldResetScreenValue = false;
         }
 
-        if(screenValue=="0") screenValue=symbol;
-        else screenValue+=symbol;
+        if (screen.value == "0") screen.value = symbol;
+        else screen.value += symbol;
     }
-    document.getElementById('main-calc-screen').value = screenValue;
+    screen.value = screen.value;
 
 }
 
 function cut() {
-    if(shouldResetScreenValue) shouldResetScreenValue = false;
+    if (shouldResetScreenValue) shouldResetScreenValue = false;
 
-    let numberAtScreen = Number(screenValue);
+    let numberAtScreen = Number(screen.value);
 
     let offsetDueToSign = (numberAtScreen >= 0) ? 1 : 2;
-    if(screenValue.length > offsetDueToSign) {
-        if(screenValue[screenValue.length-2]!=".") screenValue = screenValue.substring(0, screenValue.length-1);
-        else screenValue = screenValue.substring(0, screenValue.length-2);
-    }
-    else screenValue = "0";  
+    if (screen.value.length > offsetDueToSign) {
+        if (screen.value.at(-2) != ".") screen.value = screen.value.slice(0, -1);
 
-    document.getElementById('main-calc-screen').value = screenValue;
+        else screen.value = screen.value.slice(0, -2);
+    }
+    else screen.value = "0";
+
+    screen.value = screen.value;
 }
 
 function invertSign() {
-    if(shouldResetScreenValue) shouldResetScreenValue = false;
+    if (shouldResetScreenValue) shouldResetScreenValue = false;
 
-    let numberAtScreen = Number(screenValue);    
-    if(numberAtScreen > 0) screenValue = "-" + screenValue;
-    else if(numberAtScreen < 0) screenValue = screenValue.substring(1, screenValue.length);
-    document.getElementById('main-calc-screen').value = screenValue;
+    let numberAtScreen = Number(screen.value);
+    if (numberAtScreen > 0) screen.value = "-" + screen.value;
+    else if (numberAtScreen < 0) screen.value = screen.value.slice(1);
+    screen.value = screen.value;
 }
 
 function setCurrentOperation(operationID) {
-    if(operationID=="+" || operationID=="-" || operationID=="*" || operationID=="/") {
-        if(!shouldResetScreenValue) performCurrentOperation();
-        currentNumber = Number(screenValue);
+    if ("+-*/".includes(operationID)) {
+        if (!shouldResetScreenValue) performCurrentOperation();
+        currentNumber = Number(screen.value);
         currentOperation = operationID;
         shouldResetScreenValue = true;
         indicateOperation(operationID);
@@ -58,17 +61,16 @@ function setCurrentOperation(operationID) {
 }
 
 function performCurrentOperation() {
-    if(currentOperation=="+" || currentOperation=="-" || currentOperation=="*" || currentOperation=="/") {
-        if(currentOperation=="+") currentNumber += Number(screenValue);
-        else if(currentOperation=="-") currentNumber -= Number(screenValue);
-        else if(currentOperation=="*") currentNumber *= Number(screenValue);
-        else if(currentOperation=="/") { 
-            if(screenValue!=0) currentNumber /= Number(screenValue);
+    if ("+-*/".includes(currentOperation)) {
+        if (currentOperation == "+") currentNumber += Number(screen.value);
+        else if (currentOperation == "-") currentNumber -= Number(screen.value);
+        else if (currentOperation == "*") currentNumber *= Number(screen.value);
+        else if (currentOperation == "/") {
+            if (screen.value != 0) currentNumber /= Number(screen.value);
             else currentNumber = 0;
         }
 
-        screenValue = String(currentNumber);
-        document.getElementById('main-calc-screen').value = screenValue;
+        screen.value = currentNumber;
         currentOperation = null;
         shouldResetScreenValue = true;
         indicateOperation(null);
@@ -76,15 +78,15 @@ function performCurrentOperation() {
 }
 
 function indicateOperation(operation) {
-    if(operation=="+" || operation=="-" || operation=="*" || operation=="/")
+    if (operation == "+" || operation == "-" || operation == "*" || operation == "/")
         document.getElementById('operation-indicator').innerText = operation;
     else document.getElementById('operation-indicator').innerText = "";
 }
 
 function reset() {
     currentNumber = 0;
-    screenValue = "0";
+    screen.value = "0";
     shouldResetScreenValue = false;
-    document.getElementById('main-calc-screen').value = screenValue;
+    document.getElementById('main-calc-screen').value = screen.value;
     indicateOperation(null);
 }
