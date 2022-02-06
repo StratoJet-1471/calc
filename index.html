@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self made calculator</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="scripts/scripts.js"></script>
+</head>
+
+<body>
+    <div class="calc">
+        <div class="calc-screens-panel">
+            <input type="text" id="main-calc-screen" class="main-calc-screen" readonly value="0">
+        </div>
+
+        <div class="keyboard">
+            <div class="key-container">
+                <span id="operation-indicator" class="operation-indicator"></span>
+            </div>
+
+            <div class="key-container">
+                <button class="key" onclick="reset()">C</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="cut()">&lt;&lt;</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="setCurrentOperation('/')">/</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('7')">7</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('8')">8</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('9')">9</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="setCurrentOperation('*')">&times;</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('4')">4</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('5')">5</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('6')">6</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="setCurrentOperation('-')">-</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('1')">1</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('2')">2</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('3')">3</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="setCurrentOperation('+')">+</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="invertSign()">+/-</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('0')">0</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="addSymbol('.')">.</button>
+            </div>
+            <div class="key-container">
+                <button class="key" onclick="performCurrentOperation()">=</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
