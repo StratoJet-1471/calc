@@ -5,12 +5,13 @@ var currentOperation = null;
 var shouldResetScreenValue = false;
 
 const screen = document.getElementById('main-calc-screen');
+const indicator = document.getElementById('operation-indicator');
 
 
 function addSymbol(symbol) {
     if (symbol === '.') {
         if (shouldResetScreenValue) shouldResetScreenValue = false;
-        if (!screen.value.includes(symbol)) screen.value += symbol;
+        if (!screen.value.includes('.')) screen.value += '.';
     }
     else {
         if (shouldResetScreenValue) {
@@ -78,15 +79,12 @@ function performCurrentOperation() {
 }
 
 function indicateOperation(operation) {
-    if (operation == "+" || operation == "-" || operation == "*" || operation == "/")
-        document.getElementById('operation-indicator').innerText = operation;
-    else document.getElementById('operation-indicator').innerText = "";
+    indicator.innerText = "+-*/".includes(operation) ? operation : ''
 }
 
 function reset() {
     currentNumber = 0;
     screen.value = "0";
     shouldResetScreenValue = false;
-    document.getElementById('main-calc-screen').value = screen.value;
     indicateOperation(null);
 }
