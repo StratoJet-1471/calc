@@ -1,0 +1,65 @@
+html {
+    box-sizing: border-box;
+
+    --calc-width: 176px;
+    --calc-padding: 2px;
+    --calc-border-thickness: 1px;
+
+    --keyboard-width: 170px;
+    --keyboard-padding: 5px;
+    --keyboard-border-thickness: 1px;
+    --keyboard-gap: 10px;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+/*
+Теперь у нас все элементы, вложенные в html, и сам html имеют парметр box-sizing: border-box - т.е., если элементу заданы размеры, то паддинги и бордеры (но не маргины) элемента будут "внутри" этих размеров. Т.е., если элементу задана ширина Х, то ширинаКонтента + паддинг + толщинаБордера = Х. А иначе Х будет шириной контента, а не всего элемента, а весь элемент, при наличии паддингов и бордера, получится больше.
+
+Можно было б для каждого класса прописать отдельно box-sizing: border-box, но это будет менее производительно.
+*/
+
+.calc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: var(--calc-width);
+    padding: var(--calc-padding);
+
+    border: var(--calc-border-thickness) solid black;
+}
+
+.main-calc-screen {
+    width: var(--keyboard-width);
+    margin-bottom: 2px;
+
+    text-align: right;
+}
+
+.keyboard {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--keyboard-gap);
+
+    width: var(--keyboard-width);
+    padding: var(--keyboard-padding);
+
+    border: var(--keyboard-border-thickness) solid black;
+}
+
+.key-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.key {
+    width: 32px;
+    height: 22px;
+}
+
+.operation-indicator {
+    color: red;
+}
